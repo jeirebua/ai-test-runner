@@ -195,7 +195,6 @@ interface ExecuteTestOptions {
 // Execute test with step-by-step updates
 export const executeTest = async ({
   steps,
-  config,
   onStepUpdate,
   onProgressUpdate,
 }: ExecuteTestOptions): Promise<TestResult> => {
