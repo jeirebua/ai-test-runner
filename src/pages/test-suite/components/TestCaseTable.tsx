@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
   Box,
   Button,
@@ -7,9 +8,19 @@ import {
 } from "@chakra-ui/react"
 import { Play, ChevronRight, Plus } from "lucide-react"
 import { TEST_CASE_COLUMNS, DUMMY_TEST_CASES } from "../TestSuite.constants"
+import type { TestCase } from "../TestSuite.types"
 import TestCaseFormContainer from "../containers/TestCaseFormContainer"
+import TestStepDrawer from "./TestStepDrawer"
 
 function TestCaseTable() {
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [selectedTestCase, setSelectedTestCase] = useState<TestCase | null>(null)
+
+  const handleRowClick = (testCase: TestCase) => {
+    setSelectedTestCase(testCase)
+    setDrawerOpen(true)
+  }
+
   return (
     <Box>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
@@ -56,11 +67,11 @@ function TestCaseTable() {
         </Table.Header>
         <Table.Body>
           {DUMMY_TEST_CASES.map((testCase, index) => (
-            <Table.Row key={testCase.id} cursor="pointer" _hover={{ bg: "gray.50" }}>
+            <Table.Row key={testCase.id} cursor="pointer" _hover={{ bg: "gray.50" }} onClick={() => handleRowClick(testCase)}>
               <Table.Cell>{index + 1}</Table.Cell>
               <Table.Cell fontWeight="medium">{testCase.name}</Table.Cell>
               <Table.Cell color="gray.600">{testCase.steps}</Table.Cell>
-              <Table.Cell>
+              <Table.Cell onClick={(e) => e.stopPropagation()}>
                 <Button
                   size="sm"
                   bg="primary.500"
@@ -81,6 +92,12 @@ function TestCaseTable() {
           ))}
         </Table.Body>
       </Table.Root>
+
+      <TestStepDrawer
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        selectedTestCase={selectedTestCase}
+      />
     </Box>
   )
 }
