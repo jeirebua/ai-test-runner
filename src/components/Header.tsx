@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { Bot, BookOpen, Code2, User } from "lucide-react";
+import { BookOpen, Code2, User } from "lucide-react";
 
 export const Header = () => {
   return (
@@ -12,14 +12,9 @@ export const Header = () => {
       shadow="sm"
     >
       <Flex alignItems="center" justifyContent="space-between">
-        <Flex alignItems="center" gap={3}>
-          <Box color="primary.500">
-            <Bot size={32} strokeWidth={2.5} />
-          </Box>
-          <Text fontSize="2xl" fontWeight="bold" color="gray.800">
-            AI Test Runner
-          </Text>
-        </Flex>
+        <Text fontSize="2xl" fontWeight="bold" color="primary.500">
+          Ingenia
+        </Text>
 
         <Flex alignItems="center" gap={4}>
           <Flex
